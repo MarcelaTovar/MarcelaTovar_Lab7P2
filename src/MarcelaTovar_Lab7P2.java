@@ -1,6 +1,10 @@
 
+import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -17,8 +21,12 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
      */
     public MarcelaTovar_Lab7P2() {
         initComponents();
+        try{
         administrarCarpeta.cargarArchivo();
         administrarArchivos.cargarArchivo();
+        }catch(Exception InvalidClassException){
+            
+        }
     }
 
     /**
@@ -50,15 +58,18 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
         JTextField_IngreseNombreCarpeta = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        JPopUpMenu = new javax.swing.JPopupMenu();
+        JMenuItem_Destacado = new javax.swing.JMenuItem();
+        JMenuItem_Papelera = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         JList_Unidades = new javax.swing.JList<>();
         JProgressBar_pg2 = new javax.swing.JProgressBar();
         JProgressBar_MiUnidad1 = new javax.swing.JProgressBar();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTree1 = new javax.swing.JTree();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        JList_2 = new javax.swing.JList<>();
 
         jPanel2.setBackground(new java.awt.Color(255, 231, 214));
 
@@ -237,6 +248,17 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        JMenuItem_Destacado.setText("Mover a Destacados");
+        JMenuItem_Destacado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMenuItem_DestacadoActionPerformed(evt);
+            }
+        });
+        JPopUpMenu.add(JMenuItem_Destacado);
+
+        JMenuItem_Papelera.setText("Mover a Papelera");
+        JPopUpMenu.add(JMenuItem_Papelera);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 239, 242));
@@ -252,8 +274,6 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(JList_Unidades);
-
-        jScrollPane3.setViewportView(jTree1);
 
         jButton1.setText("Crear Archivo");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -271,6 +291,13 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
                 jButton2MouseEntered(evt);
             }
         });
+
+        JList_2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JList_2MouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(JList_2);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -291,8 +318,8 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
                         .addComponent(jButton2))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(67, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -302,9 +329,9 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(JProgressBar_MiUnidad1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(64, 64, 64)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE))
                 .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
@@ -328,7 +355,7 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-        
+
         JComboBox_SeleccionarCarpetasArchivo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{}));
         for (Carpeta t : administrarCarpeta.getListaCarpetas()) {
             DefaultComboBoxModel modelo
@@ -336,7 +363,7 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
             modelo.addElement(t);
             JComboBox_SeleccionarCarpetasArchivo.setModel(modelo);
         }
-        
+
         abrir_dialogs(jDialog1);
 
     }//GEN-LAST:event_jButton1MouseClicked
@@ -345,13 +372,13 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
         // TODO add your handling code here:
         administrarArchivos.cargarArchivo();
         String nombre = "", extension = "";
-        double tamanio = 0;
-        
+        int tamanio = 0;
+
         nombre = JTextField_IngreseNombreArchivo.getText();
         extension = (String) JComboBox_ExtensionArchivo.getSelectedItem();
-        tamanio = (double) JSpinner_tamanioArchivo.getValue();
-        
-        Archivo a = new Archivo(nombre,extension,tamanio);
+        tamanio = Integer.parseInt(JSpinner_tamanioArchivo.getValue().toString());
+
+        Archivo a = new Archivo(nombre, extension, tamanio);
         String m = a.crearLink();
         a.setLink(m);
         administrarArchivos.getListaArchivos().add(a);
@@ -366,7 +393,7 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
 
     private void jButton2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseEntered
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_jButton2MouseEntered
 
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
@@ -374,11 +401,11 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
         administrarCarpeta.cargarArchivo();
         String nombre = "";
         nombre = JTextField_IngreseNombreCarpeta.getText();
-        
+
         Carpeta c = new Carpeta(nombre);
         String x = c.crearLinkCarpeta();
         c.setLink(x);
-        
+
         administrarCarpeta.getListaCarpetas().add(c);
         administrarCarpeta.escribirArchivo();
         administrarCarpeta.cargarArchivo();
@@ -388,21 +415,21 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
         // TODO add your handling code here:
         administrarCarpeta.cargarArchivo();
         String nombre = "", extension = "";
-        double tamanio = 0;
-        
+        int tamanio = 0;
+
         nombre = JTextField_IngreseNombreArchivo.getText();
         extension = (String) JComboBox_ExtensionArchivo.getSelectedItem();
-        tamanio = (double) JSpinner_tamanioArchivo.getValue();
-        
-        Archivo a = new Archivo(nombre,extension,tamanio);
+        tamanio = Integer.parseInt(JSpinner_tamanioArchivo.getValue().toString());
+
+        Archivo a = new Archivo(nombre, extension, tamanio);
         String m = a.crearLink();
         a.setLink(m);
         int pos = JComboBox_SeleccionarCarpetasArchivo.getSelectedIndex();
         administrarCarpeta.getListaCarpetas().get(pos).getArchivos().add(a);
         administrarCarpeta.escribirArchivo();
         administrarCarpeta.cargarArchivo();
-       
-        
+
+
     }//GEN-LAST:event_jButton4MouseClicked
 
     private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
@@ -411,11 +438,11 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
         String nombre = "";
         nombre = JTextField_IngreseNombreCarpeta.getText();
         int pos = JComboBox_SeleccionarCarpetasArchivo.getSelectedIndex();
-        
+
         Carpeta c = new Carpeta(nombre);
         String x = c.crearLinkCarpeta();
         c.setLink(x);
-        
+
         administrarCarpeta.getListaCarpetas().get(pos).getCarpetas().add(c);
         administrarCarpeta.escribirArchivo();
         administrarCarpeta.cargarArchivo();
@@ -424,9 +451,68 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
     private void JList_UnidadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JList_UnidadesMouseClicked
         // TODO add your handling code here:
         if (JList_Unidades.getSelectedIndex() == 0) {
-            System.out.println("f");
+            DefaultListModel list = new DefaultListModel();
+            for (Archivo t : administrarArchivos.getListaArchivos()) {
+                if (t.isDestacado() == false && t.isPapelera() == false) {
+                    list.addElement(t);
+                }
+
+            }
+            for (Carpeta c : administrarCarpeta.getListaCarpetas()) {
+                if (c.isDestacado() == false && c.isPapelera() == false) {
+                    list.addElement(c);
+                }
+
+            }
+            JList_2.setModel(list);
+        }else if(JList_Unidades.getSelectedIndex() == 1){
+            DefaultListModel list = new DefaultListModel();
+            for (Archivo t : administrarArchivos.getListaArchivos()) {
+                if (t.isDestacado() == true && t.isPapelera() == false) {
+                    list.addElement(t);
+                }
+
+            }
+            for (Carpeta c : administrarCarpeta.getListaCarpetas()) {
+                if (c.isDestacado() == true && c.isPapelera() == false) {
+                    list.addElement(c);
+                }
+
+            }
+            JList_2.setModel(list);
+        }else if(JList_Unidades.getSelectedIndex() == 2){
+            DefaultListModel list = new DefaultListModel();
+            for (Archivo t : administrarArchivos.getListaArchivos()) {
+                if (t.isDestacado() == false && t.isPapelera() == true) {
+                    list.addElement(t);
+                }
+
+            }
+            for (Carpeta c : administrarCarpeta.getListaCarpetas()) {
+                if (c.isDestacado() == false && c.isPapelera() == true) {
+                    list.addElement(c);
+                }
+
+            }
+            JList_2.setModel(list);
         }
+
     }//GEN-LAST:event_JList_UnidadesMouseClicked
+
+    private void JList_2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JList_2MouseClicked
+        // TODO add your handling code here:
+        if (evt.getButton() == 3) {
+            JPopUpMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_JList_2MouseClicked
+
+    private void JMenuItem_DestacadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuItem_DestacadoActionPerformed
+        // TODO add your handling code here:
+        if () {
+            
+        }
+
+    }//GEN-LAST:event_JMenuItem_DestacadoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -466,7 +552,11 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> JComboBox_ExtensionArchivo;
     private javax.swing.JComboBox<String> JComboBox_SeleccionarCarpetasArchivo;
+    private javax.swing.JList<String> JList_2;
     private javax.swing.JList<String> JList_Unidades;
+    private javax.swing.JMenuItem JMenuItem_Destacado;
+    private javax.swing.JMenuItem JMenuItem_Papelera;
+    private javax.swing.JPopupMenu JPopUpMenu;
     private javax.swing.JProgressBar JProgressBar_MiUnidad1;
     private javax.swing.JProgressBar JProgressBar_pg2;
     private javax.swing.JSpinner JSpinner_tamanioArchivo;
@@ -491,8 +581,7 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTree jTree1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
     private void abrir_dialogs(JDialog dialog) {
         dialog.setModal(true);
@@ -500,9 +589,11 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
         dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
     }
-    
+
     //Variables globales
     administrarArchivos administrarArchivos = new administrarArchivos("./archivos.cbm");
     administrarCarpetas administrarCarpeta = new administrarCarpetas("./carpetas.cbm");
+    
+    ArrayList listar = new ArrayList();
 
 }

@@ -17,24 +17,26 @@ public class Carpeta implements Serializable{
     private String link;
     private ArrayList<Archivo> archivos = new ArrayList();
     private ArrayList<Carpeta> carpetas = new ArrayList();
+    private boolean destacado;
+    private boolean papelera;
     
-    
-    private static final long SerialVersionUID=777L;
+    private static final long SerialVersionUID=467L;
 
     public Carpeta() {
     }
 
     public Carpeta(String nombre) {
         this.nombre = nombre;
-        
+        this.destacado = false;
+        this.papelera = false;
     }
 
-    public String getNombreLink() {
+    public String getNombre() {
         return nombre;
     }
 
-    public void setNombreLink(String nombreLink) {
-        this.nombre = nombreLink;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getLink() {
@@ -56,6 +58,24 @@ public class Carpeta implements Serializable{
     public ArrayList<Carpeta> getCarpetas() {
         return carpetas;
     }
+
+    public boolean isDestacado() {
+        return destacado;
+    }
+
+    public void setDestacado(boolean destacado) {
+        this.destacado = destacado;
+    }
+
+    public boolean isPapelera() {
+        return papelera;
+    }
+
+    public void setPapelera(boolean papelera) {
+        this.papelera = papelera;
+    }
+    
+    
 
     public void setCarpetas(ArrayList<Carpeta> carpetas) {
         this.carpetas = carpetas;
@@ -81,7 +101,7 @@ public class Carpeta implements Serializable{
 
     @Override
     public String toString() {
-        return  nombre ;
+        return  "Carpeta-> "+nombre +"\nArchivos-> "+archivos.toString();
     }
     
     

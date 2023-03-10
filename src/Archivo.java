@@ -16,17 +16,21 @@ public class Archivo implements Serializable{
     private String nombre;
     private String link;
     private String extension;
-    private double tamanio;
+    private int tamanio;
+    private boolean destacado;
+    private boolean papelera;
     
-    private static final long SerialVersionUID=777L;
+    private static final long SerialVersionUID=759L;
 
     public Archivo() {
     }
 
-    public Archivo(String nombre, String extension, double tamanio) {
+    public Archivo(String nombre, String extension, int tamanio) {
         this.nombre = nombre;
         this.extension = extension;
         this.tamanio = tamanio;
+        this.destacado = false;
+        this.papelera = false;
     }
 
     public String getNombre() {
@@ -57,7 +61,25 @@ public class Archivo implements Serializable{
         return tamanio;
     }
 
-    public void setTamanio(double tamanio) {
+    public boolean isDestacado() {
+        return destacado;
+    }
+
+    public void setDestacado(boolean destacado) {
+        this.destacado = destacado;
+    }
+
+    public boolean isPapelera() {
+        return papelera;
+    }
+
+    public void setPapelera(boolean papelera) {
+        this.papelera = papelera;
+    }
+    
+    
+
+    public void setTamanio(int tamanio) {
         this.tamanio = tamanio;
     }
     
