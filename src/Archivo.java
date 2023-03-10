@@ -23,9 +23,8 @@ public class Archivo implements Serializable{
     public Archivo() {
     }
 
-    public Archivo(String nombre, String link, String extension, double tamanio) {
+    public Archivo(String nombre, String extension, double tamanio) {
         this.nombre = nombre;
-        this.link = link;
         this.extension = extension;
         this.tamanio = tamanio;
     }

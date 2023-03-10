@@ -63,7 +63,7 @@ public class Carpeta implements Serializable{
     
     public String crearLinkCarpeta(){
         String acum = "";
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             char x;
             int random = new Random().nextInt((90-65)+1)+65;
             int ramdom2 = new Random().nextInt((122-97)+1)+97;
