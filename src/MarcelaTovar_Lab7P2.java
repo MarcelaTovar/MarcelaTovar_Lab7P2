@@ -508,9 +508,26 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
 
     private void JMenuItem_DestacadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuItem_DestacadoActionPerformed
         // TODO add your handling code here:
-        if () {
-            
+        administrarArchivos.cargarArchivo();
+        administrarCarpeta.cargarArchivo();
+        for (int i = 0; i < administrarArchivos.getListaArchivos().size(); i++) {
+            Object x = administrarArchivos.getListaArchivos().get(i);
+            listar.add(x);    
         }
+        for (int i = 0; i < administrarCarpeta.getListaCarpetas().size(); i++) {
+            Object x = administrarCarpeta.getListaCarpetas().get(i);
+            listar.add(x);
+        }
+        if (listar.get(JList_2.getSelectedIndex()) instanceof Archivo) {
+            ((Archivo)listar.get(JList_2.getSelectedIndex())).setDestacado(true);
+        }else if(listar.get(JList_2.getSelectedIndex()) instanceof Carpeta){
+            ((Carpeta)listar.get(JList_2.getSelectedIndex())).setDestacado(true);
+        }
+        
+        administrarArchivos.escribirArchivo();
+        administrarCarpeta.escribirArchivo();
+        administrarArchivos.cargarArchivo();
+        administrarCarpeta.cargarArchivo();
 
     }//GEN-LAST:event_JMenuItem_DestacadoActionPerformed
 
