@@ -14,6 +14,9 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
      */
     public MarcelaTovar_Lab7P2() {
         initComponents();
+        Archivo hc = new Archivo();
+        
+        System.out.println(hc.getLink());
     }
 
     /**

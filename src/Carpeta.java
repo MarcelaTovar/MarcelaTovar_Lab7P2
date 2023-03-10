@@ -13,6 +13,7 @@ import java.util.ArrayList;
  */
 public class Carpeta implements Serializable{
     private String nombreLink;
+    private String link;
     private ArrayList<Archivo> archivos = new ArrayList();
     private ArrayList<Carpeta> carpetas = new ArrayList();
     
