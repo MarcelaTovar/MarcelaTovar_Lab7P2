@@ -65,9 +65,16 @@ public class Archivo implements Serializable{
     public String crearLink(){
         String acum = "";
         for (int i = 0; i < 10; i++) {
+            char x;
             int random = new Random().nextInt((90-65)+1)+65;
             int ramdom2 = new Random().nextInt((122-97)+1)+97;
-            char x  = (char) ramdom2;
+            if (i%2 == 0) {
+                 x  = (char) ramdom2;
+            }else{
+                 x  = (char) random;
+            }
+            
+            
             acum += x;
         }
         String m = "dive.google.com/"+(String)acum;
