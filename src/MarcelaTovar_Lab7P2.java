@@ -1,5 +1,8 @@
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
@@ -26,6 +29,7 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
         try {
             administrarCarpeta.cargarArchivo();
             administrarArchivos.cargarArchivo();
+            administrarBitacora.cargarArchivo();
             hpb = new HiloProgressBar(JProgressBar_MiUnidad1);
         } catch (Exception InvalidClassException) {
 
@@ -302,6 +306,8 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(JList_Unidades);
 
+        JProgressBar_MiUnidad1.setForeground(new java.awt.Color(204, 204, 255));
+
         jButton1.setText("Crear Archivo");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -369,8 +375,8 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(70, 70, 70)
-                .addComponent(JProgressBar_MiUnidad1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60)
+                .addComponent(JProgressBar_MiUnidad1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -414,21 +420,27 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
-        // TODO add your handling code here:
-        administrarArchivos.cargarArchivo();
-        String nombre = "", extension = "";
-        int tamanio = 0;
-
-        nombre = JTextField_IngreseNombreArchivo.getText();
-        extension = (String) JComboBox_ExtensionArchivo.getSelectedItem();
-        tamanio = Integer.parseInt(JSpinner_tamanioArchivo.getValue().toString());
-
-        Archivo a = new Archivo(nombre, extension, tamanio);
-        String m = a.crearLink();
-        a.setLink(m);
-        administrarArchivos.getListaArchivos().add(a);
-        administrarArchivos.escribirArchivo();
-        administrarArchivos.cargarArchivo();
+        try {
+            // TODO add your handling code here:
+            administrarArchivos.cargarArchivo();
+            administrarBitacora.cargarArchivo();
+            String nombre = "", extension = "";
+            int tamanio = 0;
+            nombre = JTextField_IngreseNombreArchivo.getText();
+            extension = (String) JComboBox_ExtensionArchivo.getSelectedItem();
+            tamanio = Integer.parseInt(JSpinner_tamanioArchivo.getValue().toString());
+            Archivo a = new Archivo(nombre, extension, tamanio);
+            String m = a.crearLink();
+            a.setLink(m);
+            administrarArchivos.getListaArchivos().add(a);
+            administrarBitacora.getFiles().add(a);
+            administrarArchivos.escribirArchivo();
+            administrarBitacora.escribirArchivo();
+            administrarArchivos.cargarArchivo();
+            administrarBitacora.cargarArchivo();
+        } catch (IOException ex) {
+            Logger.getLogger(MarcelaTovar_Lab7P2.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton3MouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
@@ -450,55 +462,77 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2MouseEntered
 
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
-        // TODO add your handling code here:
-        administrarCarpeta.cargarArchivo();
-        String nombre = "";
-        nombre = JTextField_IngreseNombreCarpeta.getText();
-
-        Carpeta c = new Carpeta(nombre);
-        String x = c.crearLinkCarpeta();
-        c.setLink(x);
-
-        administrarCarpeta.getListaCarpetas().add(c);
-        administrarCarpeta.escribirArchivo();
-        administrarCarpeta.cargarArchivo();
+        try {
+            // TODO add your handling code here:
+            administrarBitacora.cargarArchivo();
+            administrarCarpeta.cargarArchivo();
+            String nombre = "";
+            nombre = JTextField_IngreseNombreCarpeta.getText();
+            
+            Carpeta c = new Carpeta(nombre);
+            String x = c.crearLinkCarpeta();
+            c.setLink(x);
+            
+            administrarCarpeta.getListaCarpetas().add(c);
+            administrarBitacora.getFiles().add(c);
+            administrarCarpeta.escribirArchivo();
+            administrarBitacora.escribirArchivo();
+            administrarCarpeta.cargarArchivo();
+            administrarBitacora.cargarArchivo();
+        } catch (IOException ex) {
+            Logger.getLogger(MarcelaTovar_Lab7P2.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton5MouseClicked
 
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
-        // TODO add your handling code here:
-        administrarCarpeta.cargarArchivo();
-        String nombre = "", extension = "";
-        int tamanio = 0;
-
-        nombre = JTextField_IngreseNombreArchivo.getText();
-        extension = (String) JComboBox_ExtensionArchivo.getSelectedItem();
-        tamanio = Integer.parseInt(JSpinner_tamanioArchivo.getValue().toString());
-
-        Archivo a = new Archivo(nombre, extension, tamanio);
-        String m = a.crearLink();
-        a.setLink(m);
-        int pos = JComboBox_SeleccionarCarpetasArchivo.getSelectedIndex();
-        administrarCarpeta.getListaCarpetas().get(pos).getArchivos().add(a);
-        administrarCarpeta.escribirArchivo();
-        administrarCarpeta.cargarArchivo();
+        try {
+            // TODO add your handling code here:
+            administrarBitacora.cargarArchivo();
+            administrarCarpeta.cargarArchivo();
+            String nombre = "", extension = "";
+            int tamanio = 0;
+            nombre = JTextField_IngreseNombreArchivo.getText();
+            extension = (String) JComboBox_ExtensionArchivo.getSelectedItem();
+            tamanio = Integer.parseInt(JSpinner_tamanioArchivo.getValue().toString());
+            Archivo a = new Archivo(nombre, extension, tamanio);
+            String m = a.crearLink();
+            a.setLink(m);
+            int pos = JComboBox_SeleccionarCarpetasArchivo.getSelectedIndex();
+            administrarCarpeta.getListaCarpetas().get(pos).getArchivos().add(a);
+            administrarBitacora.getFiles().add(a);
+            administrarCarpeta.escribirArchivo();
+            administrarBitacora.escribirArchivo();
+            administrarCarpeta.cargarArchivo();
+            administrarBitacora.cargarArchivo();
+        } catch (IOException ex) {
+            Logger.getLogger(MarcelaTovar_Lab7P2.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
 
     }//GEN-LAST:event_jButton4MouseClicked
 
     private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
-        // TODO add your handling code here:
-        administrarCarpeta.cargarArchivo();
-        String nombre = "";
-        nombre = JTextField_IngreseNombreCarpeta.getText();
-
-        Carpeta c = new Carpeta(nombre);
-        String x = c.crearLinkCarpeta();
-        c.setLink(x);
-        int pos = jComboBox1.getSelectedIndex();
-
-        administrarCarpeta.getListaCarpetas().get(pos).getCarpetas().add(c);
-        administrarCarpeta.escribirArchivo();
-        administrarCarpeta.cargarArchivo();
+        try {
+            // TODO add your handling code here:
+            administrarBitacora.cargarArchivo();
+            administrarCarpeta.cargarArchivo();
+            String nombre = "";
+            nombre = JTextField_IngreseNombreCarpeta.getText();
+            
+            Carpeta c = new Carpeta(nombre);
+            String x = c.crearLinkCarpeta();
+            c.setLink(x);
+            int pos = jComboBox1.getSelectedIndex();
+            
+            administrarCarpeta.getListaCarpetas().get(pos).getCarpetas().add(c);
+            administrarBitacora.getFiles().add(c);
+            administrarCarpeta.escribirArchivo();
+            administrarBitacora.escribirArchivo();
+            administrarCarpeta.cargarArchivo();
+            administrarBitacora.cargarArchivo();
+        } catch (IOException ex) {
+            Logger.getLogger(MarcelaTovar_Lab7P2.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton6MouseClicked
 
     private void JList_UnidadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JList_UnidadesMouseClicked
@@ -553,13 +587,13 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
                 JProgressBar_MiUnidad1.setString(titulo);
                 DefaultListModel list = new DefaultListModel();
                 for (Archivo t : administrarArchivos.getListaArchivos()) {
-                    if (t.isDestacado() == false && t.isPapelera() == true) {
+                    if (t.isPapelera() == true) {
                         list.addElement(t);
                     }
 
                 }
                 for (Carpeta c : administrarCarpeta.getListaCarpetas()) {
-                    if (c.isDestacado() == false && c.isPapelera() == true) {
+                    if (c.isPapelera() == true) {
                         list.addElement(c);
                     }
 
@@ -795,8 +829,10 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
     //Variables globales
     administrarArchivos administrarArchivos = new administrarArchivos("./archivos.cbm");
     administrarCarpetas administrarCarpeta = new administrarCarpetas("./carpetas.cbm");
+    administrarBitacora administrarBitacora = new administrarBitacora("./Bitacora.txt");
 
     ArrayList listar = new ArrayList();
+    ArrayList bitacora = administrarBitacora.getFiles();
 
     String titulo = "/Mi unidad";
 
