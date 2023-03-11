@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
@@ -24,6 +26,7 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
         try {
             administrarCarpeta.cargarArchivo();
             administrarArchivos.cargarArchivo();
+            hpb = new HiloProgressBar(JProgressBar_MiUnidad1);
         } catch (Exception InvalidClassException) {
 
         }
@@ -58,6 +61,7 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
         JTextField_IngreseNombreCarpeta = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
         JPopUpMenu = new javax.swing.JPopupMenu();
         JMenuItem_Destacado = new javax.swing.JMenuItem();
         JMenuItem_Papelera = new javax.swing.JMenuItem();
@@ -71,6 +75,8 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         JList_2 = new javax.swing.JList<>();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         jPanel2.setBackground(new java.awt.Color(255, 231, 214));
 
@@ -213,25 +219,32 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
                         .addGap(34, 34, 34)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jButton5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(26, 26, 26)
-                                .addComponent(JTextField_IngreseNombreCarpeta, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(36, Short.MAX_VALUE))
+                                .addComponent(JTextField_IngreseNombreCarpeta, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(116, 116, 116)
+                                .addComponent(jComboBox1, 0, 169, Short.MAX_VALUE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jButton5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(58, 58, 58))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(JTextField_IngreseNombreCarpeta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(53, 53, 53)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(JTextField_IngreseNombreCarpeta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(44, 44, 44)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton5)
                     .addComponent(jButton6))
@@ -314,12 +327,35 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(JList_2);
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nombre", "Tamaño", "Extension"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(jTable1);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(174, 174, 174)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(JProgressBar_pg2, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(JProgressBar_MiUnidad1, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(34, 34, 34)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -329,29 +365,29 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
                                 .addComponent(jButton2))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(174, 174, 174)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(JProgressBar_pg2, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(JProgressBar_MiUnidad1, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(77, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(JProgressBar_pg2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(JProgressBar_MiUnidad1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(64, 64, 64)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE))
-                .addGap(26, 26, 26)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane2)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE))
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1)
+                            .addComponent(jButton2)))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
 
@@ -379,7 +415,8 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
             modelo.addElement(t);
             JComboBox_SeleccionarCarpetasArchivo.setModel(modelo);
         }
-
+        
+        
         abrir_dialogs(jDialog1);
 
     }//GEN-LAST:event_jButton1MouseClicked
@@ -404,6 +441,14 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{}));
+        for (Carpeta t : administrarCarpeta.getListaCarpetas()) {
+            DefaultComboBoxModel modelo
+                    = (DefaultComboBoxModel) jComboBox1.getModel();
+            modelo.addElement(t);
+            jComboBox1.setModel(modelo);
+        }
+
         abrir_dialogs(jDialog2);
     }//GEN-LAST:event_jButton2MouseClicked
 
@@ -453,11 +498,12 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
         administrarCarpeta.cargarArchivo();
         String nombre = "";
         nombre = JTextField_IngreseNombreCarpeta.getText();
-        int pos = JComboBox_SeleccionarCarpetasArchivo.getSelectedIndex();
+        
 
         Carpeta c = new Carpeta(nombre);
         String x = c.crearLinkCarpeta();
         c.setLink(x);
+        int pos = jComboBox1.getSelectedIndex();
 
         administrarCarpeta.getListaCarpetas().get(pos).getCarpetas().add(c);
         administrarCarpeta.escribirArchivo();
@@ -466,7 +512,9 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
 
     private void JList_UnidadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JList_UnidadesMouseClicked
         // TODO add your handling code here:
+
         switch (JList_Unidades.getSelectedIndex()) {
+
             case 0: {
                 titulo = "Mi Unidad/";
                 JProgressBar_MiUnidad1.setStringPainted(true);
@@ -485,6 +533,7 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
 
                 }
                 JList_2.setModel(list);
+
                 break;
             }
             case 1: {
@@ -614,14 +663,40 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
         }
         if (listar.get(JList_2.getSelectedIndex()) instanceof Archivo) {
             //((Archivo)listar.get(JList_2.getSelectedIndex())).setPapelera(true);
+            DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
+
             Archivo c = ((Archivo) listar.get(JList_2.getSelectedIndex()));
+
+            while (tableModel.getRowCount() > 0) {
+                tableModel.removeRow(0);
+            }
+            DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+
+            Object[] row = {c.getNombre(), c.getTamanio(), c.getExtension()};
+            modelo.addRow(row);
+
+            jTable1.setModel(modelo);
+
             JProgressBar_MiUnidad1.setStringPainted(true);
-            JProgressBar_MiUnidad1.setString(titulo+c.getLink());
+            JProgressBar_MiUnidad1.setString(titulo + c.getLink());
+            hpb.setTamanio((int) c.getTamanio());
+            hpb.start();
         } else if (listar.get(JList_2.getSelectedIndex()) instanceof Carpeta) {
             //((Carpeta)listar.get(JList_2.getSelectedIndex())).setPapelera(true);
+            DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
             Carpeta c = ((Carpeta) listar.get(JList_2.getSelectedIndex()));
+            while (tableModel.getRowCount() > 0) {
+                tableModel.removeRow(0);
+            }
+            DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+
+            Object[] row = {c.getNombre()};
+            modelo.addRow(row);
+
+            jTable1.setModel(modelo);
+
             JProgressBar_MiUnidad1.setStringPainted(true);
-            String s = (titulo+c.getLink());
+            String s = (titulo + c.getLink());
             JProgressBar_MiUnidad1.setString(s);
         }
 
@@ -682,6 +757,7 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JDialog jDialog2;
     private javax.swing.JLabel jLabel1;
@@ -696,6 +772,8 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
     private void abrir_dialogs(JDialog dialog) {
         dialog.setModal(true);
@@ -711,6 +789,7 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
     ArrayList listar = new ArrayList();
 
     String titulo = "/Mi unidad";
-    
+
+    HiloProgressBar hpb;
 
 }

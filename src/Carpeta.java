@@ -101,7 +101,7 @@ public class Carpeta implements Serializable{
 
     @Override
     public String toString() {
-        return  "Carpeta-> "+nombre +"\nArchivos-> "+archivos.toString();
+        return  "Carpeta-> "+nombre +"\nArchivos-> "+archivos.toString()+"\nCarpetas-> "+carpetas.toString();
     }
     
     

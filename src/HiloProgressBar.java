@@ -60,7 +60,7 @@ public class HiloProgressBar extends Thread{
     public void run() {
         while (vive) {
             if (avanzar) {
-                barra.setValue(barra.getValue() + tamanio/10);
+                barra.setValue(barra.getValue() + 10);
                 if (barra.getValue() == tamanio) {
                     vive = false;
                 }
