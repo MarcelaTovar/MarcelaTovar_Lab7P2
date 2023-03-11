@@ -21,11 +21,11 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
      */
     public MarcelaTovar_Lab7P2() {
         initComponents();
-        try{
-        administrarCarpeta.cargarArchivo();
-        administrarArchivos.cargarArchivo();
-        }catch(Exception InvalidClassException){
-            
+        try {
+            administrarCarpeta.cargarArchivo();
+            administrarArchivos.cargarArchivo();
+        } catch (Exception InvalidClassException) {
+
         }
     }
 
@@ -61,6 +61,7 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
         JPopUpMenu = new javax.swing.JPopupMenu();
         JMenuItem_Destacado = new javax.swing.JMenuItem();
         JMenuItem_Papelera = new javax.swing.JMenuItem();
+        JMenuItem_Descargar = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         JList_Unidades = new javax.swing.JList<>();
@@ -257,12 +258,26 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
         JPopUpMenu.add(JMenuItem_Destacado);
 
         JMenuItem_Papelera.setText("Mover a Papelera");
+        JMenuItem_Papelera.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JMenuItem_PapeleraMouseClicked(evt);
+            }
+        });
         JPopUpMenu.add(JMenuItem_Papelera);
+
+        JMenuItem_Descargar.setText("Descargar");
+        JMenuItem_Descargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMenuItem_DescargarActionPerformed(evt);
+            }
+        });
+        JPopUpMenu.add(JMenuItem_Descargar);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 239, 242));
 
+        JList_Unidades.setFont(new java.awt.Font("American Typewriter", 1, 18)); // NOI18N
         JList_Unidades.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Mi Unidad", "Destacados", "Papelera", " " };
             public int getSize() { return strings.length; }
@@ -303,23 +318,24 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(JProgressBar_MiUnidad1, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JProgressBar_pg2, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(152, 152, 152))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(67, Short.MAX_VALUE))
+                        .addGap(34, 34, 34)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton2))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(174, 174, 174)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(JProgressBar_pg2, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(JProgressBar_MiUnidad1, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -450,51 +466,69 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
 
     private void JList_UnidadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JList_UnidadesMouseClicked
         // TODO add your handling code here:
-        if (JList_Unidades.getSelectedIndex() == 0) {
-            DefaultListModel list = new DefaultListModel();
-            for (Archivo t : administrarArchivos.getListaArchivos()) {
-                if (t.isDestacado() == false && t.isPapelera() == false) {
-                    list.addElement(t);
-                }
+        switch (JList_Unidades.getSelectedIndex()) {
+            case 0: {
+                titulo = "Mi Unidad/";
+                JProgressBar_MiUnidad1.setStringPainted(true);
+                JProgressBar_MiUnidad1.setString(titulo);
+                DefaultListModel list = new DefaultListModel();
+                for (Archivo t : administrarArchivos.getListaArchivos()) {
+                    if (t.isDestacado() == false && t.isPapelera() == false) {
+                        list.addElement(t);
+                    }
 
-            }
-            for (Carpeta c : administrarCarpeta.getListaCarpetas()) {
-                if (c.isDestacado() == false && c.isPapelera() == false) {
-                    list.addElement(c);
                 }
+                for (Carpeta c : administrarCarpeta.getListaCarpetas()) {
+                    if (c.isDestacado() == false && c.isPapelera() == false) {
+                        list.addElement(c);
+                    }
 
-            }
-            JList_2.setModel(list);
-        }else if(JList_Unidades.getSelectedIndex() == 1){
-            DefaultListModel list = new DefaultListModel();
-            for (Archivo t : administrarArchivos.getListaArchivos()) {
-                if (t.isDestacado() == true && t.isPapelera() == false) {
-                    list.addElement(t);
                 }
-
+                JList_2.setModel(list);
+                break;
             }
-            for (Carpeta c : administrarCarpeta.getListaCarpetas()) {
-                if (c.isDestacado() == true && c.isPapelera() == false) {
-                    list.addElement(c);
+            case 1: {
+                titulo = "Destacados/";
+                JProgressBar_MiUnidad1.setStringPainted(true);
+                JProgressBar_MiUnidad1.setString(titulo);
+                DefaultListModel list = new DefaultListModel();
+                for (Archivo t : administrarArchivos.getListaArchivos()) {
+                    if (t.isDestacado() == true && t.isPapelera() == false) {
+                        list.addElement(t);
+                    }
+
                 }
+                for (Carpeta c : administrarCarpeta.getListaCarpetas()) {
+                    if (c.isDestacado() == true && c.isPapelera() == false) {
+                        list.addElement(c);
+                    }
 
-            }
-            JList_2.setModel(list);
-        }else if(JList_Unidades.getSelectedIndex() == 2){
-            DefaultListModel list = new DefaultListModel();
-            for (Archivo t : administrarArchivos.getListaArchivos()) {
-                if (t.isDestacado() == false && t.isPapelera() == true) {
-                    list.addElement(t);
                 }
-
+                JList_2.setModel(list);
+                break;
             }
-            for (Carpeta c : administrarCarpeta.getListaCarpetas()) {
-                if (c.isDestacado() == false && c.isPapelera() == true) {
-                    list.addElement(c);
+            case 2: {
+                titulo = "Papelera/";
+                JProgressBar_MiUnidad1.setStringPainted(true);
+                JProgressBar_MiUnidad1.setString(titulo);
+                DefaultListModel list = new DefaultListModel();
+                for (Archivo t : administrarArchivos.getListaArchivos()) {
+                    if (t.isDestacado() == false && t.isPapelera() == true) {
+                        list.addElement(t);
+                    }
+
                 }
+                for (Carpeta c : administrarCarpeta.getListaCarpetas()) {
+                    if (c.isDestacado() == false && c.isPapelera() == true) {
+                        list.addElement(c);
+                    }
 
+                }
+                JList_2.setModel(list);
+                break;
             }
-            JList_2.setModel(list);
+            default:
+                break;
         }
 
     }//GEN-LAST:event_JList_UnidadesMouseClicked
@@ -512,24 +546,86 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
         administrarCarpeta.cargarArchivo();
         for (int i = 0; i < administrarArchivos.getListaArchivos().size(); i++) {
             Object x = administrarArchivos.getListaArchivos().get(i);
-            listar.add(x);    
+            listar.add(x);
         }
         for (int i = 0; i < administrarCarpeta.getListaCarpetas().size(); i++) {
             Object x = administrarCarpeta.getListaCarpetas().get(i);
             listar.add(x);
         }
         if (listar.get(JList_2.getSelectedIndex()) instanceof Archivo) {
-            ((Archivo)listar.get(JList_2.getSelectedIndex())).setDestacado(true);
-        }else if(listar.get(JList_2.getSelectedIndex()) instanceof Carpeta){
-            ((Carpeta)listar.get(JList_2.getSelectedIndex())).setDestacado(true);
+            //((Archivo)listar.get(JList_2.getSelectedIndex())).setDestacado(true);
+            Archivo c = ((Archivo) listar.get(JList_2.getSelectedIndex()));
+            int index = administrarArchivos.getListaArchivos().indexOf(c);
+            administrarArchivos.getListaArchivos().get(index).setDestacado(true);
+        } else if (listar.get(JList_2.getSelectedIndex()) instanceof Carpeta) {
+            //((Carpeta)listar.get(JList_2.getSelectedIndex())).setDestacado(true);
+            Carpeta c = ((Carpeta) listar.get(JList_2.getSelectedIndex()));
+            int index = administrarCarpeta.getListaCarpetas().indexOf(c);
+            administrarCarpeta.getListaCarpetas().get(index).setDestacado(true);
         }
-        
+
         administrarArchivos.escribirArchivo();
         administrarCarpeta.escribirArchivo();
         administrarArchivos.cargarArchivo();
         administrarCarpeta.cargarArchivo();
 
     }//GEN-LAST:event_JMenuItem_DestacadoActionPerformed
+
+    private void JMenuItem_PapeleraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JMenuItem_PapeleraMouseClicked
+        // TODO add your handling code here:
+        administrarArchivos.cargarArchivo();
+        administrarCarpeta.cargarArchivo();
+        for (int i = 0; i < administrarArchivos.getListaArchivos().size(); i++) {
+            Object x = administrarArchivos.getListaArchivos().get(i);
+            listar.add(x);
+        }
+        for (int i = 0; i < administrarCarpeta.getListaCarpetas().size(); i++) {
+            Object x = administrarCarpeta.getListaCarpetas().get(i);
+            listar.add(x);
+        }
+        if (listar.get(JList_2.getSelectedIndex()) instanceof Archivo) {
+            //((Archivo)listar.get(JList_2.getSelectedIndex())).setPapelera(true);
+            Archivo c = ((Archivo) listar.get(JList_2.getSelectedIndex()));
+            int index = administrarArchivos.getListaArchivos().indexOf(c);
+            administrarArchivos.getListaArchivos().get(index).setPapelera(true);
+        } else if (listar.get(JList_2.getSelectedIndex()) instanceof Carpeta) {
+            //((Carpeta)listar.get(JList_2.getSelectedIndex())).setPapelera(true);
+            Carpeta c = ((Carpeta) listar.get(JList_2.getSelectedIndex()));
+            int index = administrarCarpeta.getListaCarpetas().indexOf(c);
+            administrarCarpeta.getListaCarpetas().get(index).setPapelera(true);
+        }
+
+        administrarArchivos.escribirArchivo();
+        administrarCarpeta.escribirArchivo();
+        administrarArchivos.cargarArchivo();
+        administrarCarpeta.cargarArchivo();
+    }//GEN-LAST:event_JMenuItem_PapeleraMouseClicked
+
+    private void JMenuItem_DescargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuItem_DescargarActionPerformed
+        // TODO add your handling code here:
+
+        for (int i = 0; i < administrarArchivos.getListaArchivos().size(); i++) {
+            Object x = administrarArchivos.getListaArchivos().get(i);
+            listar.add(x);
+        }
+        for (int i = 0; i < administrarCarpeta.getListaCarpetas().size(); i++) {
+            Object x = administrarCarpeta.getListaCarpetas().get(i);
+            listar.add(x);
+        }
+        if (listar.get(JList_2.getSelectedIndex()) instanceof Archivo) {
+            //((Archivo)listar.get(JList_2.getSelectedIndex())).setPapelera(true);
+            Archivo c = ((Archivo) listar.get(JList_2.getSelectedIndex()));
+            JProgressBar_MiUnidad1.setStringPainted(true);
+            JProgressBar_MiUnidad1.setString(titulo+c.getLink());
+        } else if (listar.get(JList_2.getSelectedIndex()) instanceof Carpeta) {
+            //((Carpeta)listar.get(JList_2.getSelectedIndex())).setPapelera(true);
+            Carpeta c = ((Carpeta) listar.get(JList_2.getSelectedIndex()));
+            JProgressBar_MiUnidad1.setStringPainted(true);
+            String s = (titulo+c.getLink());
+            JProgressBar_MiUnidad1.setString(s);
+        }
+
+    }//GEN-LAST:event_JMenuItem_DescargarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -571,6 +667,7 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> JComboBox_SeleccionarCarpetasArchivo;
     private javax.swing.JList<String> JList_2;
     private javax.swing.JList<String> JList_Unidades;
+    private javax.swing.JMenuItem JMenuItem_Descargar;
     private javax.swing.JMenuItem JMenuItem_Destacado;
     private javax.swing.JMenuItem JMenuItem_Papelera;
     private javax.swing.JPopupMenu JPopUpMenu;
@@ -610,7 +707,10 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
     //Variables globales
     administrarArchivos administrarArchivos = new administrarArchivos("./archivos.cbm");
     administrarCarpetas administrarCarpeta = new administrarCarpetas("./carpetas.cbm");
-    
+
     ArrayList listar = new ArrayList();
+
+    String titulo = "/Mi unidad";
+    
 
 }
