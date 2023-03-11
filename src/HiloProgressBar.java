@@ -5,12 +5,12 @@ import javax.swing.JProgressBar;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 /**
  *
  * @author marcela
  */
-public class HiloProgressBar extends Thread{
+public class HiloProgressBar extends Thread {
+
     private JProgressBar barra;
     private boolean avanzar;
     private boolean vive;
@@ -53,23 +53,25 @@ public class HiloProgressBar extends Thread{
     public void setTamanio(int tamanio) {
         this.tamanio = tamanio;
     }
-    
-    
+
+   
 
     @Override
     public void run() {
+        long tiempo = tamanio / 10;
+        int max = (int) tiempo;
+        barra.setMaximum(max);
         while (vive) {
             if (avanzar) {
-                barra.setValue(barra.getValue() + 10);
-                if (barra.getValue() == tamanio) {
+                barra.setValue(barra.getValue() + 1);
+                if (barra.getValue() == tiempo) {
                     vive = false;
                 }
-            } 
+            } //FIN IF
 
             try {
-                Thread.sleep(0);
+                Thread.sleep(1000);
             } catch (InterruptedException ex) {
-
             }
         }
     }
