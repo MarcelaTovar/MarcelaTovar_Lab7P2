@@ -408,8 +408,7 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
             modelo.addElement(t);
             JComboBox_SeleccionarCarpetasArchivo.setModel(modelo);
         }
-        
-        
+
         abrir_dialogs(jDialog1);
 
     }//GEN-LAST:event_jButton1MouseClicked
@@ -491,7 +490,6 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
         administrarCarpeta.cargarArchivo();
         String nombre = "";
         nombre = JTextField_IngreseNombreCarpeta.getText();
-        
 
         Carpeta c = new Carpeta(nombre);
         String x = c.crearLinkCarpeta();
@@ -684,10 +682,29 @@ public class MarcelaTovar_Lab7P2 extends javax.swing.JFrame {
             }
             DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
 
-            Object[] row = {c.getNombre()};
-            modelo.addRow(row);
+            if (c.getArchivos().isEmpty()==false) {
+                for (Archivo a : c.getArchivos()) {
+                Object[] row = {a.getNombre(),a.getTamanio(),a.getExtension()};
+                modelo.addRow(row);
+            }
+            }else{
+                Object[] row = {c.getNombre()};
+                modelo.addRow(row);
+            }
 
             jTable1.setModel(modelo);
+
+            if (c.getArchivos().isEmpty() == false) {
+                int tam = 0;
+                for (int i = 0; i < c.getArchivos().size(); i++) {
+                    int x = (int) c.getArchivos().get(i).getTamanio();
+                    tam += x;
+                }
+
+                hpb = new HiloProgressBar(JProgressBar_MiUnidad1);
+                hpb.setTamanio(tam);
+                hpb.start();
+            }
 
             JProgressBar_MiUnidad1.setStringPainted(true);
             String s = (titulo + c.getLink());

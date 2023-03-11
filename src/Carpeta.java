@@ -95,7 +95,7 @@ public class Carpeta implements Serializable{
             
             acum += x;
         }
-        String m = "dive.google.com/"+this.nombre+(String)acum;
+        String m = "dive.google.com/"+this.nombre+"/"+(String)acum;
         return m;
     }
 
